@@ -5,11 +5,15 @@ import recipeView from './views/recipeView.js';
 
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
 export const loadRecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await getJSON(`${API_URL}${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
@@ -26,5 +30,26 @@ export const loadRecipe = async function (id) {
     console.log(state.recipe);
   } catch (err) {
     console.error(`${err}`);
+    throw err;
+  }
+};
+
+export const loadSearchResults = async function (query) {
+  try {
+    state.search.query = query;
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    console.log(data);
+
+    state.search.results = data.data.recipes.map(res => {
+      return {
+        id: res.id,
+        title: res.title,
+        publisher: res.publisher,
+        image: res.image_url,
+      };
+    });
+  } catch (err) {
+    console.error(`${err}`);
+    throw err;
   }
 };
