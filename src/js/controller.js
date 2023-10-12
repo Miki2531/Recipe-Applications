@@ -2,7 +2,8 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
-import paginationViews from './views/paginationViews.js';
+import paginationView from './views/paginationView.js';
+import bookmarkeView from './views/bookmarkeView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -14,10 +15,14 @@ import { async } from 'regenerator-runtime';
 
 const controlRecipes = async function () {
   try {
-    const id = window.location.hash.slice();
+    const id = window.location.hash.slice(1);
 
     if (!id) return;
     recipeView.renderSpinner();
+
+    // 0 updating result view selected mark result
+    resultsView.update(model.getSearchResultsPage());
+    bookmarkeView.update(model.state.bookmarks);
 
     // 1. loading spinner
     await model.loadRecipe(id);
@@ -43,7 +48,7 @@ const controlSearchResults = async function () {
     resultsView.render(model.getSearchResultsPage());
 
     // 4 paginate rendering recipe output.
-    paginationViews.render(model.state.search);
+    paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
@@ -54,7 +59,7 @@ const controlPagination = function (goToPage) {
   resultsView.render(model.getSearchResultsPage(goToPage));
 
   // 2 Rnder NEW pagination buttons
-  paginationViews.render(model.state.search);
+  paginationView.render(model.state.search);
 };
 
 const controlServing = function () {
@@ -62,14 +67,28 @@ const controlServing = function () {
   model.updateServings(8);
 
   // updating recipe views
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
+};
+
+const controBookmarks = function () {
+  // Add/Remove bookmarks
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  else model.deleteAddBookmark(model.state.recipe.id);
+
+  // Update recipe view
+  recipeView.update(model.state.recipe);
+
+  // Render bookmarks
+  bookmarkeView.render(model.state.bookmarks);
 };
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerserving(controlServing);
+  recipeView.addHandlerBookmark(controBookmarks);
   searchView.addHandlerSearch(controlSearchResults);
-  paginationViews.addPaginationHandler(controlPagination);
+  paginationView.addPaginationHandler(controlPagination);
 };
 
 init();
