@@ -3,6 +3,7 @@ import icons from 'url:../../img/icons.svg';
 
 class AddRecipeView extends View {
   _parentElement = document.querySelector('.upload');
+  _message = 'Successfully upload a recipe to the Database:)';
 
   _overlay = document.querySelector('.overlay');
   _window = document.querySelector('.add-recipe-window');
