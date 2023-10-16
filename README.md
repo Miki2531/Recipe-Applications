@@ -8,7 +8,10 @@ Search for recipes: Find recipes using keywords or ingredients. View recipe deta
 
 # Built with
 
-~~JavaScript~~
+$$
+JavaScript
+$$
+
 CSS3
 HTML5
 Parcel
