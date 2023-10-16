@@ -6,18 +6,19 @@ Forkify is a recipe search and saving app, built with HTML5, CSS3, and JavaScrip
 
 # Features
 
-Search for recipes: Find recipes using keywords or ingredients. View recipe details: See ingredients, cooking instructions, and serving size. Bookmark recipes: Save your favorite recipes for later.Add recipes: Create and share your own recipes. Pagination: Easily navigate search results.Responsive Design
+    . Search for recipes: Find recipes using keywords or ingredients.
+    . View recipe details: See ingredients, cooking instructions, and serving size.
+    . Bookmark recipes: Save your favorite recipes for later.
+    . Add recipes: Create and share your own recipes.
+    . Pagination: Easily navigate search results.Responsive Design
 
 # Built with
 
-$$
-JavaScript
-$$
-
-CSS3
-HTML5
-Parcel
-NPM
+    . JavaScript
+    . CSS3
+    . HTML5
+    . Parcel
+    . NPM
 
 ## #Flowchart1
 
