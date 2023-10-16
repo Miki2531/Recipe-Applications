@@ -1,7 +1,7 @@
 // import icons from '../img/icons.svg'
 import icons from 'url:../../img/icons.svg';
 import { Fraction } from 'fractional';
-import View from './views.js';
+import View from './view.js';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
@@ -15,6 +15,7 @@ class RecipeView extends View {
   addHandlerserving(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--update-servings');
+      if (!btn) return;
 
       const { updateTo } = btn.dataset;
       if (+updateTo > 0) handler(+updateTo);
@@ -61,14 +62,14 @@ class RecipeView extends View {
 
             <div class="recipe__info-buttons">
               <button class="btn--tiny btn--update-servings" data-update-to="${
-                this._data.servings + 1
+                this._data.servings - 1
               }">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
               <button class="btn--tiny btn--update-servings" data-update-to="${
-                this._data.servings - 1
+                this._data.servings + 1
               }">
                 <svg>
                   <use href="${icons}#icon-plus-circle"></use>
@@ -85,7 +86,7 @@ class RecipeView extends View {
           <button class="btn--round btn--bookmark">
             <svg class="">
               <use href="${icons}#icon-bookmark${
-      this._data.bookMarked ? 'fill' : ''
+      this._data.bookMarked ? '-fill' : ''
     }"></use>
             </svg>
           </button>

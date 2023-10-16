@@ -16,11 +16,12 @@ const controlRecipes = async function () {
     const id = window.location.hash.slice(6);
 
     if (!id) return;
-
     recipeView.renderSpinner();
 
     // 0 updating result view selected mark result
     resultsView.update(model.getSearchResultsPage());
+
+    // Update bookmark views
     bookmarkeView.update(model.state.bookmarks);
 
     // 1. loading spinner
@@ -29,8 +30,8 @@ const controlRecipes = async function () {
     // 2. Render Rcipe
     recipeView.render(model.state.recipe);
   } catch (err) {
-    console.error(err);
     recipeView.renderError();
+    console.error(err);
   }
 };
 
@@ -51,7 +52,6 @@ const controlSearchResults = async function () {
     paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
-    console.error(err);
   }
 };
 
@@ -104,7 +104,7 @@ const controlAddRecipe = async function (newRecipe) {
     addRecipeView.renderMessage();
 
     // Render bookmark views
-    // bookmarkeView.render(model.state.recipe);
+    bookmarkeView.render(model.state.bookmarks);
 
     // change id in URL
     window.history.pushState(null, '', `#${model.state.recipe.id}`);
