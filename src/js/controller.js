@@ -127,6 +127,8 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addPaginationHandler(controlPagination);
   addRecipeView.addHandlerUploadRecipe(controlAddRecipe);
+  recipeView.addHandlerCloseRecipe();
+  recipeView.openRecipe();
 };
 
 init();
